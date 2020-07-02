@@ -1,12 +1,10 @@
-	package com.revature.controllers;
+package com.revature.controllers;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
 import com.revature.services.UserService;
 
 @RestController
@@ -30,6 +29,8 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserRepository userRepository;
 	
 	@GetMapping
 	public List<User> getUsers()  {
@@ -38,6 +39,7 @@ public class UserController {
 	
 	@PostMapping
 	public User saveUser(@Valid @RequestBody User user) {
+		
 		return userService.save(user);
 	}
 	
@@ -50,6 +52,7 @@ public class UserController {
 	public User updateUser(@RequestBody User user) {
 		return userService.update(user);
 	}
+	
 
 }
 
