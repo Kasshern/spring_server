@@ -18,10 +18,7 @@ import com.revature.utils.ValidationException;
 
 @RestController
 @RequestMapping("/signup")
-@CrossOrigin(origins = "*", 
-methods = {RequestMethod.GET, RequestMethod.PUT, 
-			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type"})
+@CrossOrigin(origins = "*")
 public class SignupController {
 
 	@Autowired
