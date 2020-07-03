@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.entities.Post;
 import com.revature.entities.User;
 
@@ -37,6 +39,7 @@ public class Comment {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("events")
 	private User user;
 
 	public int getId() {
@@ -69,6 +72,24 @@ public class Comment {
 
 	public void setCreationTime(LocalDate creationTime) {
 		this.creationTime = creationTime;
+	}
+
+	@JsonIgnore
+	public Post getPost() {
+		return post;
+	}
+
+	@JsonIgnore
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

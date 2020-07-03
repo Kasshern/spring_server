@@ -1,6 +1,8 @@
 package com.revature.entities;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +20,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.revature.entities.Event;
 import com.revature.entities.User;
 
@@ -29,23 +34,34 @@ public class User{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+//	@JsonView(Views.Internal.class)
 	private String username;
 	
+//	@JsonView(Views.Internal.class)
 	@Column(name = "user_password")
 	private String userPassword;
 	
+//	@JsonView(Views.Internal.class)
 	@Column(name = "first_name")
 	private String firstName;
 	
+//	@JsonView(Views.Internal.class)
 	@Column(name = "last_name")
 	private String lastName;
 	
+//	@JsonView(Views.Internal.class)
 	@Email
 	private String email;
 	
-//	@OneToOne(fetch = FetchType.EAGER)
+	//	@OneToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "user_location_id")
 //	private UserLocation userLocation;
+
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinTable(name="user_events", joinColumns = { @JoinColumn(name="user_id") },
+//							inverseJoinColumns = { @JoinColumn(name="event_id")})
+	@JsonIgnoreProperties({"users", "user"})
+	private Collection<Event> events = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -94,6 +110,11 @@ public class User{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+	public Collection<Event> getEvents() {
+		return events;
+}
 
 	@Override
 	public int hashCode() {
@@ -156,16 +177,22 @@ public class User{
 		this.lastName = lastName;
 		this.email = email;
 	}
-
-	public User() {
+	
+	
+	public User(int id, String username, String userPassword, String firstName, String lastName, @Email String email,
+			Collection<Event> events) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.username = username;
+		this.userPassword = userPassword;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.events = events;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", userPassword=" + userPassword + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	public void setEvents(Collection<Event> events) {
+		this.events = events;
 	}
 	
 }

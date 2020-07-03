@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.entities.Event;
 import com.revature.entities.User;
 
@@ -39,6 +41,7 @@ public class Post {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("events")
 	private User user;
 
 	public int getId() {
@@ -71,6 +74,24 @@ public class Post {
 
 	public void setCreationTime(LocalDate creationTime) {
 		this.creationTime = creationTime;
+	}
+
+	@JsonIgnore
+	public Event getEvent() {
+		return event;
+	}
+
+	@JsonIgnore
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

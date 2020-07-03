@@ -16,8 +16,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	
 	List<Event> getEventsByEventTypeId(int eventTypeId);
 	
+	List<Event> getEventsByEventType(String eventType);
+	
 	List<Event> getEventsByTitle(String title);
 
-	List<Event> getEventsByUserId(int userId);
+	List<Event> getEventsByUserId(int hostId);
 	
 }

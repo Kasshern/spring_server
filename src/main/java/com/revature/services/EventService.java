@@ -42,9 +42,17 @@ public class EventService {
 		return eventRepository.getEventsByEventTypeId(eventTypeId);
 	}
 	
-	public List<Event> getEventsByUserId(Integer userId) {
-		return eventRepository.getEventsByUserId(userId);
+	public List<Event> getEventsByEventType(String eventType) {
+		return eventRepository.getEventsByEventType(eventType);
 	}
+	
+	public List<Event> getEventsByUserId(Integer hostId) {
+		return eventRepository.getEventsByUserId(hostId);
+	}
+	
+//	public List<Event> getEventsByAttendId(Integer attendId) {
+//		return eventRepository.getEventsByAttendId(attendId);
+//	}
 
 	public List<Event> getEventsByTitle(String title) {
 		return eventRepository.getEventsByTitle(title);

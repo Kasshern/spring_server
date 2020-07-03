@@ -7,15 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "event_types")
 public class EventType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.External.class)
 	private int id;
 	
 	@Column(name = "event_type")
+	@JsonView(Views.External.class)
 	private String eventType;
 
 	public int getId() {

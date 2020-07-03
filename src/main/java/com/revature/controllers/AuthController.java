@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.revature.config.JwtToken;
 import com.revature.entities.JwtRequest;
 import com.revature.entities.JwtResponse;
+import com.revature.entities.Views;
 import com.revature.services.JwtUserDetailsService;
 
 @RestController
@@ -30,7 +32,6 @@ public class AuthController {
 
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
-
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {

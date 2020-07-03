@@ -6,9 +6,9 @@ jwt:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${P0_APP_URL}/project2
-    username: ${P0_APP_ROLE}
-    password: ${P0_APP_PASS}
+    url: jdbc:postgresql://${NODE_APP_URL}/project2
+    username: ${NODE_APP_ROLE}
+    password: ${NODE_APP_PASS}
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:

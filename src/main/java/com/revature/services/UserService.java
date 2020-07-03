@@ -1,13 +1,14 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Event;
 import com.revature.entities.User;
 import com.revature.repositories.UserRepository;
 
@@ -16,6 +17,9 @@ public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+    private EventService eventService;
 
 	public User save(User user) {
 		return userRepository.save(user);
@@ -25,14 +29,22 @@ public class UserService {
 		return userRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
-	public User update(User user) {
-		if (user.getId() == 0) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-		}
-		return save(user);
-	}
-
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
+
+	public User updateUser(User user) {
+        User newUser = findById(user.getId());
+        System.out.println(newUser);
+        newUser.getEvents()
+                .addAll(user
+                        .getEvents()
+                        .stream()
+                        .map(e -> {
+                            Event ee = eventService.findById(e.getId());
+                            ee.getUsers().add(newUser);
+                            return ee;
+                        }).collect(Collectors.toList()));
+        return userRepository.save(newUser);
+    }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,10 @@ import com.revature.services.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", 
+methods = {RequestMethod.GET, RequestMethod.PUT, 
+			RequestMethod.PATCH, RequestMethod.POST},
+allowedHeaders = {"Content-Type"})
 public class UserController {
 
 	@Autowired
@@ -45,10 +50,21 @@ public class UserController {
 		return userService.findById(id);
 	}
 	
+//	@PutMapping
+//	public User updateUser(@RequestBody User user) {
+//		return userService.update(user);
+//	}
+//	
+//	 @PostMapping
+//	    public ResponseEntity<?> saveUser(@RequestBody User user) {
+//	        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+//	    }
+	
 	@PutMapping
-	public User updateUser(@RequestBody User user) {
-		return userService.update(user);
+	public ResponseEntity<?> updateUser(@RequestBody User user) {
+	    return new ResponseEntity<>(userService.updateUser(user), HttpStatus.CREATED);
 	}
+
 	
 
 }
