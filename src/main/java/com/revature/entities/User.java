@@ -1,5 +1,6 @@
 package com.revature.entities;
 
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,8 +24,7 @@ import com.revature.entities.User;
 
 @Entity
 @Table(name="users")
-public class User {
-	
+public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -147,7 +147,7 @@ public class User {
 		return true;
 	}
 
-	public User(int id, String username, String userPassword, String firstName, String lastName, @Email String email) {
+	public User(String username, String userPassword, String firstName, String lastName, @Email String email) {
 		super();
 		this.id = id;
 		this.username = username;

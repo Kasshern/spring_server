@@ -23,10 +23,7 @@ import com.revature.services.CommentService;
 
 @RestController
 @RequestMapping("/comment")
-@CrossOrigin(origins = "*", 
-methods = {RequestMethod.GET, RequestMethod.PUT, 
-			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type"})
+@CrossOrigin(origins = "*")
 public class CommentController {
 
 	@Autowired
